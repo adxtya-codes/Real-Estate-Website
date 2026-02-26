@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-blue: #0A0F24;
+  --color-brand-gold: #D4A017;
+  --color-brand-white: #FFFFFF;
+  --color-brand-gray: #F5F5F5;
+  
+  --font-inter: "Inter", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  
+  --background: #0A0F24;
+  --foreground: #FFFFFF;
+}
+
+:root {
+  --background: #0A0F24;
+  --foreground: #FFFFFF;
+  --brand-blue: #0A0F24;
+  --brand-gold: #D4A017;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #D4A017 0%, #B68A12 100%);
+}
