@@ -33,7 +33,34 @@ export default function Hero({ properties }: { properties: PropertyData[] }) {
     const [bhk, setBhk] = useState("3 BHK");
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    const displayProperties = properties.length > 0 ? properties : [];
+    const defaultProperties: PropertyData[] = [
+        {
+            id: 'default-1',
+            title: "Ultra Luxury Villa in DLF Phase 5",
+            location: "Gurugram, Haryana",
+            price: "₹15 Cr",
+            images: "/images/properties/luxury-villa-1.jpg",
+            bedrooms: "5",
+            bathrooms: "6",
+            area: "6500 sq.ft",
+            type: "Villa",
+            city: "Gurugram"
+        },
+        {
+            id: 'default-2',
+            title: "Premium Sea-Facing Penthouse",
+            location: "Worli, Mumbai",
+            price: "₹25 Cr",
+            images: "/images/properties/penthouse-1.jpg",
+            bedrooms: "4",
+            bathrooms: "5",
+            area: "4200 sq.ft",
+            type: "Apartment",
+            city: "Mumbai"
+        }
+    ];
+
+    const displayProperties = properties.length > 0 ? properties : defaultProperties;
 
     useEffect(() => {
         if (displayProperties.length === 0) return;
