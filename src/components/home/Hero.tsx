@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import IndiaMap from "./IndiaMap";
 
 const citiesList = ["Delhi", "Gurugram", "Noida", "Mumbai", "Bangalore", "Hyderabad"];
 const budgetsList = ["All Budgets", "Under ₹1 Cr", "₹1 Cr - ₹3 Cr", "₹3 Cr - ₹5 Cr", "₹5 Cr+"];
@@ -174,15 +173,57 @@ export default function Hero({ properties }: { properties: PropertyData[] }) {
                     </div>
                 </motion.div>
 
-                {/* Right Content - Interactive Map */}
+                {/* Right Content - Dynamic Image */}
                 <motion.div
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1, delay: 0.2 }}
                     className="relative hidden lg:block"
                 >
-                    <div className="relative h-[650px] w-full rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl bg-brand-blue/40 glass">
-                        <IndiaMap />
+                    <div className="relative h-[650px] w-full rounded-[3rem] overflow-hidden border border-white/10 shadow-2xl group">
+                        {displayProperties.length > 0 && (
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={currentImageIndex}
+                                    initial={{ opacity: 0, scale: 1.1 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 1 }}
+                                    className="absolute inset-0"
+                                >
+                                    <Image
+                                        src={displayProperties[currentImageIndex].images.split(',')[0]}
+                                        alt={displayProperties[currentImageIndex].title}
+                                        fill
+                                        className="object-cover"
+                                        priority
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/80 via-transparent to-transparent" />
+
+                                    {/* Image Info Overlay */}
+                                    <div className="absolute bottom-8 left-8 right-8 glass p-6 rounded-2xl border border-white/10 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                        <div className="flex justify-between items-end">
+                                            <div className="space-y-1">
+                                                <p className="text-brand-gold text-xs font-bold uppercase tracking-widest">
+                                                    {displayProperties[currentImageIndex].location}
+                                                </p>
+                                                <h3 className="text-xl font-bold text-white truncate max-w-[200px]">
+                                                    {displayProperties[currentImageIndex].title}
+                                                </h3>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-brand-gold font-bold">{displayProperties[currentImageIndex].price}</p>
+                                                <Link href={`/properties/${displayProperties[currentImageIndex].id}`}>
+                                                    <Button variant="ghost" size="sm" className="p-0 h-auto hover:bg-transparent text-white/60 hover:text-white flex items-center gap-1">
+                                                        View Details <ArrowRight size={14} />
+                                                    </Button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        )}
                     </div>
 
                     {/* Floating Decorative Elements */}
